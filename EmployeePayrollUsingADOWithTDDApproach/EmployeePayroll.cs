@@ -65,5 +65,42 @@ namespace EmployeePayrollUsingADOWithTDDApproach
                 this.connection.Close();
             }
         }
+
+        public int GetEmployeeBetweenPerticularDateRange()
+        {
+            int result = 0;
+            try
+            {
+                EmployeePayrollModel model = new EmployeePayrollModel();
+                using (this.connection)
+                {
+                    string query = @"select count(employee_id) from employee_payroll where joining_date between CAST('2018-12-25' as date) AND GETDATE();";
+                    SqlCommand command = new SqlCommand(query, connection);
+                    connection.Open();
+                    result = (int)command.ExecuteScalar();
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            model.employee_id = reader.GetInt32(0);
+                            Console.WriteLine("{0}", model.employee_id);
+                            Console.WriteLine("\n");
+                        }
+                    }
+                    reader.Close();
+                    this.connection.Close();
+                }
+                return result;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+        }
     }
 }

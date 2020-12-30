@@ -13,7 +13,9 @@ namespace EmployeePayrollUsingADOWithTDDApproach
             EmployeePayrollModel model = new EmployeePayrollModel();
             model.employee_name = "Barkha";
             model.salary = 300000.00;
-            employeePayroll.UpdateEmployeeSalary(model);
+            //employeePayroll.UpdateEmployeeSalary(model);
+
+            employeePayroll.GetEmployeeBetweenPerticularDateRange();
         }
     }
 }

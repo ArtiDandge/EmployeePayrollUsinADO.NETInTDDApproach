@@ -6,6 +6,9 @@ namespace EmployeePayrollUsingTDDTest
     [TestClass]
     public class UnitTest1
     {
+        /// <summary>
+        /// Test case to check  updated employee salary
+        /// </summary>
         [TestMethod]
         public void GivenQuery_ShouldUpdateSalary()
         {
@@ -19,6 +22,18 @@ namespace EmployeePayrollUsingTDDTest
             double salary = employeePayroll.UpdateEmployeeSalary(model);
 
             Assert.AreEqual(expectedResult, salary);
+        }
+
+        /// <summary>
+        /// Test Case to get count of employee from perticular range
+        /// </summary>
+        [TestMethod]
+        public void GivenQuery_whenCount_ShouldReturnCount()
+        {
+            int expectedResult = 2;
+            EmployeePayroll employeePayroll = new EmployeePayroll();
+            int result = employeePayroll.GetEmployeeBetweenPerticularDateRange();
+            Assert.AreEqual(expectedResult, result);
         }
     }
 }
