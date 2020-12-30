@@ -8,7 +8,12 @@ namespace EmployeePayrollUsingADOWithTDDApproach
         {
             Console.WriteLine("Welcome to Employee Payroll Project with ADO solved using TDD Approach");
             EmployeePayroll employeePayroll = new EmployeePayroll();
-            employeePayroll.GetData();
+            //employeePayroll.GetData();
+
+            EmployeePayrollModel model = new EmployeePayrollModel();
+            model.employee_name = "Barkha";
+            model.salary = 300000.00;
+            employeePayroll.UpdateEmployeeSalary(model);
         }
     }
 }

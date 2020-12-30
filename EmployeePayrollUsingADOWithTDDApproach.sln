@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmployeePayrollUsingADOWithTDDApproach", "EmployeePayrollUsingADOWithTDDApproach\EmployeePayrollUsingADOWithTDDApproach.csproj", "{2277A16C-F43F-47F2-A1AD-9ED0AD23073C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeePayrollUsingTDDTest", "EmployeePayrollUsingTDDTest\EmployeePayrollUsingTDDTest.csproj", "{FECC1159-07E0-4C3B-B140-5D26F7730F2F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{2277A16C-F43F-47F2-A1AD-9ED0AD23073C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2277A16C-F43F-47F2-A1AD-9ED0AD23073C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2277A16C-F43F-47F2-A1AD-9ED0AD23073C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FECC1159-07E0-4C3B-B140-5D26F7730F2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FECC1159-07E0-4C3B-B140-5D26F7730F2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FECC1159-07E0-4C3B-B140-5D26F7730F2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FECC1159-07E0-4C3B-B140-5D26F7730F2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

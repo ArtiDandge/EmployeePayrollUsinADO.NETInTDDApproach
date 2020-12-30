@@ -10,11 +10,7 @@ namespace EmployeePayrollUsingADOWithTDDApproach
     {
         public static string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=employee_payroll_service;Integrated Security=True";
         SqlConnection connection = new SqlConnection(connectionString);
-        private static SqlConnection Connectionsetup()
-        {
-            return new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=employee_payroll_service;Integrated Security=True");
-        }
-
+   
         public void GetData()
         {
             EmployeePayrollModel model = new EmployeePayrollModel();
@@ -39,6 +35,33 @@ namespace EmployeePayrollUsingADOWithTDDApproach
                     }
                 }
                 reader.Close();
+                this.connection.Close();
+            }
+        }
+
+        public double UpdateEmployeeSalary(EmployeePayrollModel model)
+        {
+            try
+            {
+                using (this.connection)
+                {
+                    SqlCommand command = new SqlCommand("SpUpdateSalary", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@Empname", model.employee_name);
+                    command.Parameters.AddWithValue("@updateSalary", model.salary);
+                    this.connection.Open();
+                    command.ExecuteNonQuery();
+                    Console.WriteLine("Salary Updated Successfully !");
+                    this.connection.Close();
+                }
+                return model.salary;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
                 this.connection.Close();
             }
         }
