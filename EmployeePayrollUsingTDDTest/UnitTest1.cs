@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using EmployeePayrollUsingADOWithTDDApproach;
+using System.Collections.Generic;
 
 namespace EmployeePayrollUsingTDDTest
 {
@@ -34,6 +35,24 @@ namespace EmployeePayrollUsingTDDTest
             EmployeePayroll employeePayroll = new EmployeePayroll();
             int result = employeePayroll.GetEmployeeBetweenPerticularDateRange();
             Assert.AreEqual(expectedResult, result);
+        }
+
+        /// <summary>
+        /// Test case for aggregate function query
+        /// </summary>
+        [TestMethod]
+        public void GivenQuery_WhenAggregateFunction_ShouldReturnResultAndMatchExpected()
+        {
+            List<string> expected = new List<string>();
+            List<string> result = new List<string>();
+            expected.Add("250000");
+            expected.Add("100000");
+            expected.Add("150000");
+            expected.Add("650000");
+            expected.Add("325000");
+            EmployeePayroll employeePayroll = new EmployeePayroll();
+            result = employeePayroll.GetAggregateFunctionResult();
+            CollectionAssert.AreEqual(expected, result);
         }
     }
 }

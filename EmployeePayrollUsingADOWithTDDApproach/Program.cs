@@ -15,7 +15,8 @@ namespace EmployeePayrollUsingADOWithTDDApproach
             model.salary = 300000.00;
             //employeePayroll.UpdateEmployeeSalary(model);
 
-            employeePayroll.GetEmployeeBetweenPerticularDateRange();
+            //employeePayroll.GetEmployeeBetweenPerticularDateRange();
+            employeePayroll.GetAggregateFunctionResult();
         }
     }
 }

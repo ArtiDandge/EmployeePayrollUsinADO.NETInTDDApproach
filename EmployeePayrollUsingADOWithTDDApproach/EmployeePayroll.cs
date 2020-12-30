@@ -102,5 +102,100 @@ namespace EmployeePayrollUsingADOWithTDDApproach
                 this.connection.Close();
             }
         }
+
+        public List<string> GetAggregateFunctionResult()
+        {
+            List<string> str = new List<string>();
+            try
+            {
+                EmployeePayrollModel employeeModel = new EmployeePayrollModel();
+                using (this.connection)
+                {
+                    using (SqlCommand command = new SqlCommand(
+                        @"SELECT SUM(salary) FROM employee_payroll WHERE gender = 'F' GROUP BY gender;
+                        SELECT MIN(salary) FROM employee_payroll WHERE gender = 'F' GROUP BY gender;
+                        SELECT MAX(salary) FROM employee_payroll WHERE gender = 'F' GROUP BY gender;
+                        SELECT COUNT(employee_id) FROM employee_payroll WHERE gender = 'F';
+                        SELECT SUM(salary) FROM employee_payroll WHERE gender = 'M' GROUP BY gender;
+                        SELECT AVG(salary) FROM employee_payroll WHERE gender = 'M' GROUP BY gender; 
+                        SELECT COUNT(employee_id) FROM employee_payroll WHERE gender = 'M';", connection))
+                    {
+                        connection.Open();
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            Console.WriteLine("\n---------------Aggregate Function Operation on Female Employee---------------");
+                            while (reader.Read())
+                            {
+                                employeeModel.salary = Convert.ToDouble(reader.GetDecimal(0));
+                                str.Add(employeeModel.salary.ToString());
+                                Console.WriteLine("Overall Sum of Basic Pay of Female Employee is : {0}", employeeModel.salary);
+                            }
+                            if (reader.NextResult())
+                            {
+                                while (reader.Read())
+                                {
+                                    employeeModel.salary = Convert.ToDouble(reader.GetDecimal(0));
+                                    str.Add(employeeModel.salary.ToString());
+                                    Console.WriteLine("Minimum of Basic Pay of Female Employee is : {0}", employeeModel.salary);
+                                }
+                            }
+                            if (reader.NextResult())
+                            {
+                                while (reader.Read())
+                                {
+                                    employeeModel.salary = Convert.ToDouble(reader.GetDecimal(0));
+                                    str.Add(employeeModel.salary.ToString());
+                                    Console.WriteLine("Maximum of Basic Pay of Female Employee is : {0}", employeeModel.salary);
+                                }
+                            }
+                            if (reader.NextResult())
+                            {
+                                while (reader.Read())
+                                {
+                                    employeeModel.employee_id = reader.GetInt32(0);
+                                    Console.WriteLine("Number of Female Employee present : {0}", employeeModel.employee_id);
+                                }
+                            }
+                            Console.WriteLine("\n---------------Aggregate Function Operation on Male Employee---------------");
+                            if (reader.NextResult())
+                            {
+                                while (reader.Read())
+                                {
+                                    employeeModel.salary = Convert.ToDouble(reader.GetDecimal(0));
+                                    str.Add(employeeModel.salary.ToString());
+                                    Console.WriteLine("Overall Sum of Basic Pay of Male Employee is : {0}", employeeModel.salary);
+                                }
+                            }
+                            if (reader.NextResult())
+                            {
+                                while (reader.Read())
+                                {
+                                    employeeModel.salary = Convert.ToDouble(reader.GetDecimal(0));
+                                    str.Add(employeeModel.salary.ToString());
+                                    Console.WriteLine("Average of Basic Pay of Male Employee is : {0}", employeeModel.salary);
+                                }
+                            }
+                            if (reader.NextResult())
+                            {
+                                while (reader.Read())
+                                {
+                                    employeeModel.employee_id = reader.GetInt32(0);
+                                    Console.WriteLine("Number of Male Employee present : {0}", employeeModel.employee_id);
+                                }
+                            }
+                        }
+                    }
+                }
+                return str;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+        }
     }
 }
