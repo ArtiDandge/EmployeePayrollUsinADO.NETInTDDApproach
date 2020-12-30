@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using EmployeePayrollUsingADOWithTDDApproach;
 using System.Collections.Generic;
+using System;
 
 namespace EmployeePayrollUsingTDDTest
 {
@@ -31,7 +32,7 @@ namespace EmployeePayrollUsingTDDTest
         [TestMethod]
         public void GivenQuery_whenCount_ShouldReturnCount()
         {
-            int expectedResult = 2;
+            int expectedResult = 3;
             EmployeePayroll employeePayroll = new EmployeePayroll();
             int result = employeePayroll.GetEmployeeBetweenPerticularDateRange();
             Assert.AreEqual(expectedResult, result);
@@ -45,14 +46,35 @@ namespace EmployeePayrollUsingTDDTest
         {
             List<string> expected = new List<string>();
             List<string> result = new List<string>();
-            expected.Add("250000");
+            expected.Add("650000");
             expected.Add("100000");
-            expected.Add("150000");
+            expected.Add("200000");
             expected.Add("650000");
             expected.Add("325000");
             EmployeePayroll employeePayroll = new EmployeePayroll();
             result = employeePayroll.GetAggregateFunctionResult();
             CollectionAssert.AreEqual(expected, result);
+        }
+
+        /// <summary>
+        /// Test case to insert value 
+        /// </summary>
+        [TestMethod]
+        public void GivenQuery_WhenInsertInto_ShouldAbleToInsertValue()
+        {
+            bool expectedResult = true;
+            EmployeePayroll employeePayroll = new EmployeePayroll();
+            EmployeePayrollModel model = new EmployeePayrollModel()
+            {
+                employee_id = 6,
+                employee_name = "Pooja",
+                job_description = "Tech",
+                joining_date = new DateTime(2019, 09, 12),
+                salary = 200000.00,
+                geneder = "F"
+            };
+            bool result = employeePayroll.AddNewEmployee(model);
+            Assert.AreEqual(expectedResult, result);
         }
     }
 }

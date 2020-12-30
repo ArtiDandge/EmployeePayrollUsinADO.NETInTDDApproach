@@ -197,5 +197,36 @@ namespace EmployeePayrollUsingADOWithTDDApproach
                 this.connection.Close();
             }
         }
+
+        public bool AddNewEmployee(EmployeePayrollModel model)
+        {
+            try
+            {
+                SqlCommand command = new SqlCommand("InsertInto", this.connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@EmpId", model.employee_id);
+                command.Parameters.AddWithValue("@EmpName", model.employee_name);
+                command.Parameters.AddWithValue("@JobDescription", model.job_description);
+                command.Parameters.AddWithValue("@Salary", model.salary);
+                command.Parameters.AddWithValue("@JoiningDate", model.joining_date);
+                command.Parameters.AddWithValue("@Geneder", model.geneder);
+                this.connection.Open();
+                var result = command.ExecuteNonQuery();
+                this.connection.Close();
+                if (result == 0)
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+        }
     }
 }
