@@ -12,5 +12,6 @@ namespace EmployeePayrollUsingADOWithTDDApproach
         public double salary { get; set; }
         public DateTime joining_date { get; set; }
         public string geneder { get; set; }
+        public int company { get; set; }
     }
 }
