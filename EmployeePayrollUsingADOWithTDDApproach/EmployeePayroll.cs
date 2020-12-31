@@ -228,5 +228,56 @@ namespace EmployeePayrollUsingADOWithTDDApproach
                 this.connection.Close();
             }
         }
+
+        public bool AddNewEmployeeWithSalaryDetails(EmployeePayrollModel model)
+        {
+            try
+            {
+                using (SqlConnection connectio = new SqlConnection(connectionString))
+                {
+                    SqlCommand command = new SqlCommand("InsertInto", this.connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@EmpId", model.employee_id);
+                    command.Parameters.AddWithValue("@EmpName", model.employee_name);
+                    command.Parameters.AddWithValue("@JobDescription", model.job_description);
+                    command.Parameters.AddWithValue("@Salary", model.salary);
+                    command.Parameters.AddWithValue("@JoiningDate", model.joining_date);
+                    command.Parameters.AddWithValue("@Geneder", model.geneder);
+                    this.connection.Open();
+                    var result1 = command.ExecuteNonQuery();
+                    this.connection.Close();
+               
+                    int employee_id = model.employee_id;
+                    double deduction = model.salary * 0.2;
+                    double taxable_pay = model.salary - deduction;
+                    double tax = taxable_pay * 0.1;
+                    double net_salary = model.salary - tax;
+                    string payrollQuery = String.Format("insert into payroll_details (employee_id, deduction, taxable_pay, tax, net_salary) values (%s, %s, %s, %s, %s)", employee_id, deduction, taxable_pay, tax, net_salary);
+                    SqlCommand sqlCommand = new SqlCommand("InsertIntoAlongWithSalaryDetails", connection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.Parameters.AddWithValue("@empId", (model.employee_id));
+                    sqlCommand.Parameters.AddWithValue("@deduction", (model.salary * 0.2));
+                    sqlCommand.Parameters.AddWithValue("@taxable_pay", (model.salary - deduction));
+                    sqlCommand.Parameters.AddWithValue("@tax", (taxable_pay * 0.1));
+                    sqlCommand.Parameters.AddWithValue("@net_salary", (model.salary - tax));
+                    this.connection.Open();
+                    sqlCommand.ExecuteNonQuery();
+                    this.connection.Close();
+                    if (result1 == 0)
+                    {
+                        return false;
+                    }
+                    return true;
+                }                
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+        }
     }
 }

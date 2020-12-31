@@ -8,18 +8,27 @@ namespace EmployeePayrollUsingADOWithTDDApproach
         {
             Console.WriteLine("Welcome to Employee Payroll Project with ADO solved using TDD Approach");
             EmployeePayroll employeePayroll = new EmployeePayroll();
-            employeePayroll.GetData();
+            //employeePayroll.GetData();
 
             EmployeePayrollModel model = new EmployeePayrollModel();
             model.employee_name = "Barkha";
             model.salary = 300000.00;
-            employeePayroll.UpdateEmployeeSalary(model);
+            //employeePayroll.UpdateEmployeeSalary(model);
 
             //employeePayroll.GetEmployeeBetweenPerticularDateRange();
-            employeePayroll.GetAggregateFunctionResult();
+            //employeePayroll.GetAggregateFunctionResult();
 
             EmployeePayrollModel employee = new EmployeePayrollModel();
-            employeePayroll.AddNewEmployee(employee);
+            //employeePayroll.AddNewEmployee(employee);
+
+            /*model.employee_id = 9;
+            model.employee_name = "Rama";
+            model.job_description = "Construction";
+            model.joining_date = new DateTime(2020, 01, 20);
+            model.salary = 450000.00;
+            model.geneder = "F";*/
+            EmployeePayrollModel employeeModel = new EmployeePayrollModel();
+            employeePayroll.AddNewEmployeeWithSalaryDetails(employeeModel);
         }
     }
 }

@@ -32,7 +32,7 @@ namespace EmployeePayrollUsingTDDTest
         [TestMethod]
         public void GivenQuery_whenCount_ShouldReturnCount()
         {
-            int expectedResult = 3;
+            int expectedResult = 6;
             EmployeePayroll employeePayroll = new EmployeePayroll();
             int result = employeePayroll.GetEmployeeBetweenPerticularDateRange();
             Assert.AreEqual(expectedResult, result);
@@ -49,8 +49,8 @@ namespace EmployeePayrollUsingTDDTest
             expected.Add("650000");
             expected.Add("100000");
             expected.Add("200000");
-            expected.Add("650000");
-            expected.Add("325000");
+            expected.Add("890000");
+            expected.Add("296666.6666");
             EmployeePayroll employeePayroll = new EmployeePayroll();
             result = employeePayroll.GetAggregateFunctionResult();
             CollectionAssert.AreEqual(expected, result);
@@ -66,14 +66,35 @@ namespace EmployeePayrollUsingTDDTest
             EmployeePayroll employeePayroll = new EmployeePayroll();
             EmployeePayrollModel model = new EmployeePayrollModel()
             {
-                employee_id = 6,
-                employee_name = "Pooja",
-                job_description = "Tech",
-                joining_date = new DateTime(2019, 09, 12),
-                salary = 200000.00,
-                geneder = "F"
+                employee_id = 8,
+                employee_name = "Rohit",
+                job_description = "Support",
+                joining_date = new DateTime(2018, 10, 22),
+                salary = 240000.00,
+                geneder = "M"
             };
             bool result = employeePayroll.AddNewEmployee(model);
+            Assert.AreEqual(expectedResult, result);
+        }
+
+        /// <summary>
+        /// Test case to insert value 
+        /// </summary>
+        [TestMethod]
+        public void GivenQuery_WhenInsertInto_ShouldAbleToInsertIntoTwoTable()
+        {
+            bool expectedResult = true;
+            EmployeePayroll employeePayroll = new EmployeePayroll();
+            EmployeePayrollModel model = new EmployeePayrollModel()
+            {
+                employee_id = 10,
+                employee_name = "Sama",
+                job_description = "Cons",
+                joining_date = new DateTime(2019, 04, 21),
+                salary = 300000.00,
+                geneder = "M"
+            };
+            bool result = employeePayroll.AddNewEmployeeWithSalaryDetails(model);
             Assert.AreEqual(expectedResult, result);
         }
     }
