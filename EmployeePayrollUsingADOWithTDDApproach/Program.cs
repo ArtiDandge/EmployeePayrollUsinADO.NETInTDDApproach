@@ -28,7 +28,6 @@ namespace EmployeePayrollUsingADOWithTDDApproach
             model.salary = 450000.00;
             model.geneder = "F";*/
             EmployeePayrollModel employeeModel = new EmployeePayrollModel();
-            employeePayroll.AddNewEmployeeWithSalaryDetails(employeeModel);
         }
     }
 }

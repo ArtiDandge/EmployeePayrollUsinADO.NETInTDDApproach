@@ -87,14 +87,14 @@ namespace EmployeePayrollUsingTDDTest
             EmployeePayroll employeePayroll = new EmployeePayroll();
             EmployeePayrollModel model = new EmployeePayrollModel()
             {
-                employee_id = 10,
-                employee_name = "Sama",
-                job_description = "Cons",
-                joining_date = new DateTime(2019, 04, 21),
-                salary = 300000.00,
+                employee_id = 12,
+                employee_name = "Prakhar",
+                job_description = "DevOps",
+                joining_date = new DateTime(2019, 09, 17),
+                salary = 450000.00,
                 geneder = "M"
             };
-            bool result = employeePayroll.AddNewEmployeeWithSalaryDetails(model);
+            bool result = employeePayroll.AddNewEmployee(model);
             Assert.AreEqual(expectedResult, result);
         }
     }
