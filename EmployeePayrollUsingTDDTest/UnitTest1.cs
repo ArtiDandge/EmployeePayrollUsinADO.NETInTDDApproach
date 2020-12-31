@@ -97,30 +97,5 @@ namespace EmployeePayrollUsingTDDTest
             bool result = employeePayroll.AddNewEmployee(model);
             Assert.AreEqual(expectedResult, result);
         }
-
-        [TestMethod]
-        public void GivenQuery_WhenInsertInto_ShouldAbleToInsertIntoTwoTableDemo()
-        {
-            bool expectedResult = true;
-            EmployeePayroll employeePayroll = new EmployeePayroll();
-            EmployeePayrollModel model = new EmployeePayrollModel()
-            {
-                employee_id = 16,
-                employee_name = "Pratik",
-                job_description = "Finance",
-                joining_date = new DateTime(2017, 11, 11),
-                salary = 600000.00,
-                geneder = "M",
-                company = 1
-            };
-            EmployeeCompanyModel companyModel = new EmployeeCompanyModel()
-            {
-                company_id = model.employee_id,
-                company_name = "IBM"
-            };
-            //bool result = employeePayroll.AddNewEmployee(model);
-            bool result = employeePayroll.AddNewEmployeeDEmo(model, companyModel);
-            Assert.AreEqual(expectedResult, result);
-        }
     }
 }

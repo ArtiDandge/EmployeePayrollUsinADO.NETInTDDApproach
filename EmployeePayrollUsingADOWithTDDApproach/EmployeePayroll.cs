@@ -10,7 +10,7 @@ namespace EmployeePayrollUsingADOWithTDDApproach
     {
         public static string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=employee_payroll_service;Integrated Security=True";
         SqlConnection connection = new SqlConnection(connectionString);
-   
+
         public void GetData()
         {
             EmployeePayrollModel model = new EmployeePayrollModel();
@@ -245,59 +245,5 @@ namespace EmployeePayrollUsingADOWithTDDApproach
             }
         }
 
-        public bool AddNewEmployeeDEmo(EmployeePayrollModel model, EmployeeCompanyModel companyModel)
-        {
-            try
-            {
-                SqlCommand command = new SqlCommand("InsertInto", this.connection);
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@EmpId", model.employee_id);
-                command.Parameters.AddWithValue("@EmpName", model.employee_name);
-                command.Parameters.AddWithValue("@JobDescription", model.job_description);
-                command.Parameters.AddWithValue("@Salary", model.salary);
-                command.Parameters.AddWithValue("@JoiningDate", model.joining_date);
-                command.Parameters.AddWithValue("@Geneder", model.geneder);
-                this.connection.Open();
-                command.ExecuteNonQuery();
-                this.connection.Close();
-
-                int employee_id = model.employee_id;
-                double deduction = model.salary * 0.2;
-                double taxable_pay = model.salary - deduction;
-                double tax = taxable_pay * 0.1;
-                double net_salary = model.salary - tax;
-                SqlCommand sqlCommand = new SqlCommand("InsertIntoAlongWithSalaryDetails", connection);
-                sqlCommand.CommandType = CommandType.StoredProcedure;
-                sqlCommand.Parameters.AddWithValue("@empId", (model.employee_id));
-                sqlCommand.Parameters.AddWithValue("@deduction", (model.salary * 0.2));
-                sqlCommand.Parameters.AddWithValue("@taxable_pay", (model.salary - deduction));
-                sqlCommand.Parameters.AddWithValue("@tax", (taxable_pay * 0.1));
-                sqlCommand.Parameters.AddWithValue("@net_salary", (model.salary - tax));
-                this.connection.Open();
-                var result1 = sqlCommand.ExecuteNonQuery();
-                this.connection.Close();
-
-                SqlCommand companySqlCommand = new SqlCommand("InsertCompanyDetails", connection);
-                companySqlCommand.CommandType = CommandType.StoredProcedure;
-                companySqlCommand.Parameters.AddWithValue("@EmpId", companyModel.company_id);
-                companySqlCommand.Parameters.AddWithValue("@ComapnyName",companyModel.company_name);
-                this.connection.Open();
-                var result2 = companySqlCommand.ExecuteNonQuery();
-                this.connection.Close();
-                if (result2 == 0)
-                {
-                    return false;
-                }
-                return true;
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-            finally
-            {
-                this.connection.Close();
-            }
-        }
     }
 }
