@@ -11,8 +11,9 @@ namespace EmployeePayrollUsingADOWithTDDApproach
         public static string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=employee_payroll_service;Integrated Security=True";
         SqlConnection connection = new SqlConnection(connectionString);
 
-        public void GetData()
+        public int GetData()
         {
+            int result = 0;
             EmployeePayrollModel model = new EmployeePayrollModel();
             using (this.connection)
             {
@@ -29,7 +30,7 @@ namespace EmployeePayrollUsingADOWithTDDApproach
                         model.job_description = reader.GetString(2);
                         model.salary = Convert.ToDouble(reader.GetDecimal(3));
                         model.joining_date = reader.GetDateTime(4);
-
+                        result++;
                         Console.WriteLine("{0}, {1}, {2}, {3}, {4}", model.employee_id, model.employee_name, model.job_description, model.salary, model.joining_date);
                         Console.WriteLine("\n");
                     }
@@ -37,6 +38,7 @@ namespace EmployeePayrollUsingADOWithTDDApproach
                 reader.Close();
                 this.connection.Close();
             }
+            return result;
         }
 
         public double UpdateEmployeeSalary(EmployeePayrollModel model)
@@ -210,6 +212,8 @@ namespace EmployeePayrollUsingADOWithTDDApproach
                 command.Parameters.AddWithValue("@Salary", model.salary);
                 command.Parameters.AddWithValue("@JoiningDate", model.joining_date);
                 command.Parameters.AddWithValue("@Geneder", model.geneder);
+                command.Parameters.AddWithValue("@CompanyId", model.companyId);
+                command.Parameters.AddWithValue("@DepartmentId", model.departmentId);
                 this.connection.Open();
                 command.ExecuteNonQuery();
                 this.connection.Close();
@@ -244,6 +248,5 @@ namespace EmployeePayrollUsingADOWithTDDApproach
                 this.connection.Close();
             }
         }
-
     }
 }

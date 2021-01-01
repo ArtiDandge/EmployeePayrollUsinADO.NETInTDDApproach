@@ -13,5 +13,7 @@ namespace EmployeePayrollUsingADOWithTDDApproach
         public DateTime joining_date { get; set; }
         public string geneder { get; set; }
         public int company { get; set; }
+        public int companyId { get; set; }
+        public int departmentId { get; set; }
     }
 }

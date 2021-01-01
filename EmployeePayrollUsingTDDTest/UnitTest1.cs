@@ -97,5 +97,88 @@ namespace EmployeePayrollUsingTDDTest
             bool result = employeePayroll.AddNewEmployee(model);
             Assert.AreEqual(expectedResult, result);
         }
+
+        /// <summary>
+        /// UC10 : Ensure Retrieval Query is working on new DB structure
+        /// </summary>
+        [TestMethod]
+        public void GivenQuery_WhenSelect_ShouldRetrieveAllData()
+        {
+            int expectedRetrieveResult = 17;
+            EmployeePayroll employeePayroll = new EmployeePayroll();
+            int result = employeePayroll.GetData();
+            Assert.AreEqual(expectedRetrieveResult, result);
+        }
+
+        /// <summary>
+        /// UC 10 : Ensure working of update query to check  updated employee salary in new db structure
+        /// </summary>
+        [TestMethod]
+        public void GivenQuery_ShouldUpdateSalaryInNewDBStructure()
+        {
+            double expectedResult = 400000.00;
+            EmployeePayroll employeePayroll = new EmployeePayroll();
+            EmployeePayrollModel model = new EmployeePayrollModel()
+            {
+                employee_name = "Sujecha",
+                salary = 400000.00
+            };
+            double salary = employeePayroll.UpdateEmployeeSalary(model);
+
+            Assert.AreEqual(expectedResult, salary);
+        }
+
+        /// <summary>
+        /// UC 10 : Ensure working of retrieve perticular employeee data query in new db structure
+        /// </summary>
+        [TestMethod]
+        public void GivenQuery_whenCount_ShouldReturnCountFromNewDB()
+        {
+            int expectedResult = 12;
+            EmployeePayroll employeePayroll = new EmployeePayroll();
+            int result = employeePayroll.GetEmployeeBetweenPerticularDateRange();
+            Assert.AreEqual(expectedResult, result);
+        }
+
+        /// <summary>
+        /// UC 10 : Ensure working of aggregate function on employeee data in new db structure are working
+        /// </summary>
+        [TestMethod]
+        public void GivenQuery_WhenAggregateFunction_ShouldReturnResultAndMatchExpectedFromNewDB()
+        {
+            List<string> expected = new List<string>();
+            List<string> result = new List<string>();
+            expected.Add("2590000");
+            expected.Add("100000");
+            expected.Add("500000");
+            expected.Add("2830000");
+            expected.Add("353750");
+            EmployeePayroll employeePayroll = new EmployeePayroll();
+            result = employeePayroll.GetAggregateFunctionResult();
+            CollectionAssert.AreEqual(expected, result);
+        }
+
+        /// <summary>
+        /// UC 10 : Ensure UC 7 i.e. Insertion of new  Employee Data in new DB structure as per ER Diagram is working
+        /// </summary>
+        [TestMethod]
+        public void GiveQuery_WhenInsert_ShouldPerformInsertion()
+        {
+            bool expectedInsertResult = true;
+            EmployeePayroll employeePayroll = new EmployeePayroll();
+            EmployeePayrollModel model = new EmployeePayrollModel()
+            {
+                employee_id = 17,
+                employee_name = "Juili",
+                job_description = "Finance",
+                joining_date = new DateTime(2019, 11, 22),
+                salary = 240000.00,
+                geneder = "F",
+                companyId = 2,
+                departmentId = 3
+            };
+            bool insertResult = employeePayroll.AddNewEmployee(model);
+            Assert.AreEqual(expectedInsertResult, insertResult);
+        }
     }
 }
