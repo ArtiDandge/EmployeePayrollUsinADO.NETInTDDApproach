@@ -180,5 +180,29 @@ namespace EmployeePayrollUsingTDDTest
             bool insertResult = employeePayroll.AddNewEmployee(model);
             Assert.AreEqual(expectedInsertResult, insertResult);
         }
+
+
+        /// <summary>
+        /// UC 11 : Insertion of new  Employee Data in new DB structure
+        /// </summary>
+        [TestMethod]
+        public void GiveQuery_WhenInsert_ShouldPerformInsertionASInNewDBStructure()
+        {
+            bool expectedInsertResult = true;
+            EmployeePayroll employeePayroll = new EmployeePayroll();
+            EmployeePayrollModel model = new EmployeePayrollModel()
+            {
+                employee_id = 18,
+                employee_name = "Mohit",
+                job_description = "Support",
+                joining_date = new DateTime(2019, 02, 22),
+                salary = 350000.00,
+                geneder = "M",
+                companyId = 1,
+                departmentId = 3
+            };
+            bool insertResult = employeePayroll.AddNewEmployee(model);
+            Assert.AreEqual(expectedInsertResult, insertResult);
+        }
     }
 }
