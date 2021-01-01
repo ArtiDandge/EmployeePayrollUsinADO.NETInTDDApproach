@@ -27,7 +27,8 @@ namespace EmployeePayrollUsingADOWithTDDApproach
             model.joining_date = new DateTime(2020, 01, 20);
             model.salary = 450000.00;
             model.geneder = "F";*/
-            EmployeePayrollModel employeeModel = new EmployeePayrollModel();
+            model.employee_id = 6;
+            employeePayroll.CheckEmployeeISActive(model);
         }
     }
 }

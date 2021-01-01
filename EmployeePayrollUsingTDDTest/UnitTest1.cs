@@ -204,5 +204,21 @@ namespace EmployeePayrollUsingTDDTest
             bool insertResult = employeePayroll.AddNewEmployee(model);
             Assert.AreEqual(expectedInsertResult, insertResult);
         }
+
+        /// <summary>
+        /// Test case to retrieve only active employees when we inactive a employee
+        /// </summary>
+        [TestMethod]
+        public void GivenQuery_WhenEmpIdSetToFalse_ReturnOnlyActiveEmployee()
+        {
+            int expectedResult = 16;        
+            EmployeePayroll employeePayroll = new EmployeePayroll();
+            EmployeePayrollModel model = new EmployeePayrollModel()
+            {
+                employee_id = 8
+            };
+            int result = employeePayroll.CheckEmployeeISActive(model);
+            Assert.AreEqual(expectedResult, result);
+        }
     }
 }

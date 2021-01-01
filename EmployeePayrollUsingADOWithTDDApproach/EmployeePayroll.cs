@@ -248,5 +248,50 @@ namespace EmployeePayrollUsingADOWithTDDApproach
                 this.connection.Close();
             }
         }
+
+        public int CheckEmployeeISActive(EmployeePayrollModel model)
+        {
+            int count = 0;
+            using (this.connection)
+            {
+                SqlCommand command = new SqlCommand("EmployeeIsActive", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@EmpId", model.employee_id);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        model.employee_id = reader.GetInt32(0);
+                        Console.WriteLine("Emplyee With Id {0} is Set to Inactive Now", model.employee_id);
+                        Console.WriteLine("\n");
+                    }
+                }
+                reader.Close();
+                this.connection.Close();
+
+                //Query to retrieve only active employee from db
+                string query = @"select * from employee_payroll where is_active = 'true'";
+                SqlCommand selectCommand = new SqlCommand(query, connection);
+                connection.Open();
+                SqlDataReader retrieveReader = selectCommand.ExecuteReader();
+                if (retrieveReader.HasRows)
+                {
+                    while (retrieveReader.Read())
+                    {
+                        model.employee_id = retrieveReader.GetInt32(0);
+                        model.is_employee_active = retrieveReader.GetBoolean(8);
+                        count++;
+                        Console.WriteLine("{0}, {1}", model.employee_id, model.is_employee_active);
+                        Console.WriteLine("\n");
+                    }
+                }
+                retrieveReader.Close();
+                this.connection.Close();
+            }
+            //This Count returns number of active employee from database
+            return count;
+        }
     }
 }

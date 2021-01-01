@@ -15,5 +15,6 @@ namespace EmployeePayrollUsingADOWithTDDApproach
         public int company { get; set; }
         public int companyId { get; set; }
         public int departmentId { get; set; }
+        public bool is_employee_active { get; set; }
     }
 }
