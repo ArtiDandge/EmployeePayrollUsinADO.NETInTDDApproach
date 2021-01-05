@@ -30,7 +30,7 @@ namespace EmployeePayrollUsingTDDTest
             DateTime startDataTime = DateTime.Now;
             employeePayrollOperations.addEmplyeeToPayroll(employeeList);
             DateTime stopDateTime = DateTime.Now;
-            Console.WriteLine("Duration for Insertion in List without thread : "+ (stopDateTime - startDataTime));
+            var DurationWithoutThreading = stopDateTime - startDataTime;
             EmployeePayroll employeePayroll = new EmployeePayroll();
             EmployeePayrollModel model = new EmployeePayrollModel()
             {
@@ -48,13 +48,12 @@ namespace EmployeePayrollUsingTDDTest
             DateTime startDataTimeforDB = DateTime.Now;
             employeePayroll.AddNewEmployee(model);
             DateTime stopDateTimeforDB = DateTime.Now;
-            Console.WriteLine("Duration for Insertion in DB without thread : " + (stopDateTimeforDB - startDataTimeforDB));
+            var DurationWithoutThreadingForDB = stopDateTimeforDB - startDataTimeforDB;
 
             DateTime startDataTimeThread = DateTime.Now;
             employeePayrollOperations.addEmplyeeToPayrollWithThread(employeeList);
             DateTime stopDateTimeThread = DateTime.Now;
-            Console.WriteLine("Duration for Insertion in List with thread : " + (stopDateTimeThread - startDataTimeThread));
-
+            var DurationInThreading = stopDateTimeThread - startDataTimeThread;
         }
     }
 }
