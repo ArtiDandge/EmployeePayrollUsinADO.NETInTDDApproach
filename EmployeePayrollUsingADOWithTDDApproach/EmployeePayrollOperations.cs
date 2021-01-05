@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace EmployeePayrollUsingADOWithTDDApproach
 {
@@ -20,6 +21,25 @@ namespace EmployeePayrollUsingADOWithTDDApproach
                 Console.WriteLine("Emplyee added"+ employeeData.employee_name);
             });
             Console.WriteLine(this.employeeList.ToString());
+        }
+
+        /// <summary>
+        /// Add Employee with threading
+        /// </summary>
+        /// <param name="employeeList"></param>
+        public void addEmplyeeToPayrollWithThread(List<EmployeePayrollModel> employeeList)
+        {
+            employeeList.ForEach(employeeData =>
+             {
+                 Task thread = new Task(() =>
+                 {
+                     Console.WriteLine("Employee being added "+ employeeData.employee_name);
+                     this.addEmplyeePayroll(employeeData);
+                     Console.WriteLine("Employee added "+ employeeData.employee_name);
+                 });
+                 thread.Start();
+             });
+            Console.WriteLine(this.employeeList.Count);
         }
 
         /// <summary>
