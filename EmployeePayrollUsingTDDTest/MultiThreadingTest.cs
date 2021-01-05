@@ -48,6 +48,10 @@ namespace EmployeePayrollUsingTDDTest
             //with threading
             employeePayroll.AddNewEmployee(model);
             DateTime stopDateTimeforDB = DateTime.Now;
+
+            DateTime startDataTimeThread = DateTime.Now;
+            employeePayrollOperations.addEmplyeeToPayrollWithThread(employeeList);
+            DateTime stopDateTimeThread = DateTime.Now;
         }
     }
 }
