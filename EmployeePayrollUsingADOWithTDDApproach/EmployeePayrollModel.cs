@@ -16,5 +16,23 @@ namespace EmployeePayrollUsingADOWithTDDApproach
         public int companyId { get; set; }
         public int departmentId { get; set; }
         public bool is_employee_active { get; set; }
+
+        public EmployeePayrollModel()
+        {
+
+        }
+        public EmployeePayrollModel(int employee_id, string employee_name, string job_description, double salary, DateTime joining_date,
+                            string geneder, int companyId, int departmentId, bool is_employee_active)
+        {
+            this.employee_id = employee_id;
+            this.employee_name = employee_name;
+            this.job_description = job_description;
+            this.salary = salary;
+            this.joining_date = joining_date;
+            this.geneder = geneder;
+            this.companyId = companyId;
+            this.departmentId = departmentId;
+            this.is_employee_active = is_employee_active;
+        }
     }
 }

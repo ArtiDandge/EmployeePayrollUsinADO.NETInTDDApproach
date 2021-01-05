@@ -214,6 +214,7 @@ namespace EmployeePayrollUsingADOWithTDDApproach
                 command.Parameters.AddWithValue("@Geneder", model.geneder);
                 command.Parameters.AddWithValue("@CompanyId", model.companyId);
                 command.Parameters.AddWithValue("@DepartmentId", model.departmentId);
+                command.Parameters.AddWithValue("@IsActive", model.is_employee_active);
                 this.connection.Open();
                 command.ExecuteNonQuery();
                 this.connection.Close();
