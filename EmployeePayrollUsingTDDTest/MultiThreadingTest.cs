@@ -59,5 +59,32 @@ namespace EmployeePayrollUsingTDDTest
             var DurationInThreading = stopDateTimeThread - startDataTimeThread;
             Console.WriteLine("Duration of Insertion with threading for List "+ DurationInThreading);
         }
+
+        /// <summary>
+        /// Add Employee Details in both emplyee and payroll and caluculate execution time
+        /// </summary>
+        [TestMethod]
+        public void GivenQuery_WhenInsert_ShouldRecordExecutionTime()
+        {
+            EmployeePayroll employeePayroll = new EmployeePayroll();
+            EmployeePayrollModel model = new EmployeePayrollModel()
+            {
+                employee_id = 22,
+                employee_name = "Saket",
+                job_description = "Tech",
+                joining_date = new DateTime(2009, 12, 12),
+                salary = 350000.00,
+                geneder = "M",
+                companyId = 3,
+                departmentId = 2,
+                is_employee_active = true
+            };
+
+            DateTime startDataTimeforDB = DateTime.Now;
+            employeePayroll.AddNewEmployee(model);
+            DateTime stopDateTimeforDB = DateTime.Now;
+            var DurationWithoutThreadingForDB = stopDateTimeforDB - startDataTimeforDB;
+            Console.WriteLine("Duration of Insertion for DB " + DurationWithoutThreadingForDB);
+        }
     }
 }
