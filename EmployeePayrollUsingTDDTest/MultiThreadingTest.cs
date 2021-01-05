@@ -86,5 +86,24 @@ namespace EmployeePayrollUsingTDDTest
             var DurationWithoutThreadingForDB = stopDateTimeforDB - startDataTimeforDB;
             Console.WriteLine("Duration of Insertion for DB " + DurationWithoutThreadingForDB);
         }
+
+
+        /// <summary>
+        /// Test case to check  updated employee salary
+        /// </summary>
+        [TestMethod]
+        public void GivenQuery_ShouldUpdateSalary()
+        {
+            EmployeePayroll employeePayroll = new EmployeePayroll();
+            EmployeePayrollModel model = new EmployeePayrollModel()
+            {
+                employee_name = "Saket",
+                salary = 450000.00
+            };
+            DateTime startDataTimeforDB = DateTime.Now;
+            employeePayroll.UpdateEmployeeSalary(model);
+            DateTime stopDateTimeforDB = DateTime.Now;
+            Console.WriteLine("Duration for Updatation in DB : " + (stopDateTimeforDB - startDataTimeforDB));
+        }
     }
 }
