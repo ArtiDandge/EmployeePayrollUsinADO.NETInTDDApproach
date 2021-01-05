@@ -28,30 +28,33 @@ namespace EmployeePayrollUsingTDDTest
             employeeList.Add(new EmployeePayrollModel(employee_id: 110, employee_name: "Rani", job_description: "Finance", salary: 400000.00, new DateTime(2019 - 10 - 11), geneder: "F", companyId: 1, departmentId: 1, is_employee_active: true));
             EmployeePayrollOperations employeePayrollOperations = new EmployeePayrollOperations();
             DateTime startDataTime = DateTime.Now;
-            //Without threading
             employeePayrollOperations.addEmplyeeToPayroll(employeeList);
             DateTime stopDateTime = DateTime.Now;
+            Console.WriteLine("Duration for Insertion in List without thread : "+ (stopDateTime - startDataTime));
             EmployeePayroll employeePayroll = new EmployeePayroll();
             EmployeePayrollModel model = new EmployeePayrollModel()
             {
-                employee_id = 20,
-                employee_name = "Mahesh",
+                employee_id = 21,
+                employee_name = "Mahishwari",
                 job_description = "Finance",
                 joining_date = new DateTime(2019, 02, 22),
                 salary = 450000.00,
-                geneder = "M",
-                companyId = 3,
-                departmentId = 3,
+                geneder = "F",
+                companyId = 2,
+                departmentId = 1,
                 is_employee_active = true
             };
+
             DateTime startDataTimeforDB = DateTime.Now;
-            //with threading
             employeePayroll.AddNewEmployee(model);
             DateTime stopDateTimeforDB = DateTime.Now;
+            Console.WriteLine("Duration for Insertion in DB without thread : " + (stopDateTimeforDB - startDataTimeforDB));
 
             DateTime startDataTimeThread = DateTime.Now;
             employeePayrollOperations.addEmplyeeToPayrollWithThread(employeeList);
             DateTime stopDateTimeThread = DateTime.Now;
+            Console.WriteLine("Duration for Insertion in List with thread : " + (stopDateTimeThread - startDataTimeThread));
+
         }
     }
 }
