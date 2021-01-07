@@ -135,5 +135,24 @@ namespace RESTSharpTests
             Assert.AreEqual("45000", dataResponse.salary);
             System.Console.WriteLine(response.Content);
         }
+
+        /// <summary>
+        /// Test Case to Delete Employee Details using JsonServer and RESTSharp
+        /// </summary>
+        [TestMethod]
+        public void GivenEmployee_OnDelete_ShouldEmpDetails()
+        {
+            RestRequest request = new RestRequest("/employee/7", Method.DELETE);
+            IRestResponse response = client.Execute(request);
+            Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
+            IRestResponse responses = GetEmployeeList();
+            Assert.AreEqual(responses.StatusCode, HttpStatusCode.OK);
+            List<Employee> dataResponse = JsonConvert.DeserializeObject<List<Employee>>(responses.Content);
+            Assert.AreEqual(9, dataResponse.Count);
+            foreach (Employee e in dataResponse)
+            {
+                System.Console.Write("id: " + e.id + "Name: " + e.name + "Salary: " + e.salary);
+            }
+        }
     }
 }
