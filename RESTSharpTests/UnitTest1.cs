@@ -3,6 +3,7 @@ using RestSharp;
 using System.Collections.Generic;
 using System.Net;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace RESTSharpTests
 {
@@ -51,5 +52,23 @@ namespace RESTSharpTests
             }
         }
 
+        /// <summary>
+        /// Test Case to add new Employee using JsonServer and RESTSharp
+        /// </summary>
+        [TestMethod]
+        public void GivenEmployee_OnPost_ShouldReturnAddedEmpl()
+        {
+            RestRequest request = new RestRequest("/employee", Method.POST);
+            JObject jObjectbody = new JObject();
+            jObjectbody.Add("name", "Clark");
+            jObjectbody.Add("Salary", "15000");
+            request.AddParameter("application/json", jObjectbody, ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+            Assert.AreEqual(response.StatusCode, HttpStatusCode.Created);
+            Employee dataResponse = JsonConvert.DeserializeObject<Employee>(response.Content);
+            Assert.AreEqual("Clark", dataResponse.name);
+            Assert.AreEqual("15000", dataResponse.salary);
+            System.Console.WriteLine(response.Content);
+        }
     }
 }
