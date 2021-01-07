@@ -116,5 +116,24 @@ namespace RESTSharpTests
                 System.Console.Write("id: " + e.id + "Name: " + e.name + "Salary: " + e.salary);
             }
         }
+
+        /// <summary>
+        /// Test Case to Update Employee  Salary using JsonServer and RESTSharp
+        /// </summary>
+        [TestMethod]
+        public void GivenEmployee_OnPut_ShouldReturnUpdatedEmpDetails()
+        {
+            RestRequest request = new RestRequest("/employee/3", Method.PUT);
+            JObject jObjectbody = new JObject();
+            jObjectbody.Add("name", "Arti");
+            jObjectbody.Add("Salary", "45000");
+            request.AddParameter("application/json", jObjectbody, ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+            Assert.AreEqual(response.StatusCode, HttpStatusCode.OK);
+            Employee dataResponse = JsonConvert.DeserializeObject<Employee>(response.Content);
+            Assert.AreEqual("Arti", dataResponse.name);
+            Assert.AreEqual("45000", dataResponse.salary);
+            System.Console.WriteLine(response.Content);
+        }
     }
 }
