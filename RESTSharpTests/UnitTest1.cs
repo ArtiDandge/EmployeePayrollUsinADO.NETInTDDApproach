@@ -12,6 +12,26 @@ namespace RESTSharpTests
         public int id { get; set; }
         public string name { get; set; }
         public string salary { get; set; }
+
+        public Employee(string name, string salary)
+        {
+            this.name = name;
+            this.salary = salary;
+        }
+       
+        /// <summary>
+        /// Method to add employee to the list 
+        /// </summary>
+        /// <returns></returns>
+        public static List<Employee> EmployeeList()
+        {
+            List<Employee> employees = new List<Employee>();
+            employees.Add(new Employee("Sejal", "30000"));
+            employees.Add(new Employee("Komal", "50000"));
+            employees.Add(new Employee("Rama", "55000"));
+            employees.Add(new Employee("Rakhi", "45000"));
+            return employees;
+        }
     }
 
     [TestClass]
@@ -69,6 +89,32 @@ namespace RESTSharpTests
             Assert.AreEqual("Clark", dataResponse.name);
             Assert.AreEqual("15000", dataResponse.salary);
             System.Console.WriteLine(response.Content);
+        }
+
+        /// <summary>
+        /// Test Case to add multiple new Employees using JsonServer and RESTSharp
+        /// </summary>
+        [TestMethod]
+        public void GivenEmployee_OnPost_ShouldReturnMultipleAddedEmployee()
+        {
+            List<Employee> list = Employee.EmployeeList();
+            foreach (Employee e in list)
+            {
+                RestRequest request = new RestRequest("/employee", Method.POST);
+                JObject jObjectbody = new JObject();
+                jObjectbody.Add("name", e.name);
+                jObjectbody.Add("Salary",e.salary);
+                request.AddParameter("application/json", jObjectbody, ParameterType.RequestBody);
+                client.Execute(request);               
+            }
+            IRestResponse responses = GetEmployeeList();
+            Assert.AreEqual(responses.StatusCode, HttpStatusCode.OK);
+            List<Employee> dataResponse = JsonConvert.DeserializeObject<List<Employee>>(responses.Content);
+            Assert.AreEqual(10, dataResponse.Count);
+            foreach (Employee e in dataResponse)
+            {
+                System.Console.Write("id: " + e.id + "Name: " + e.name + "Salary: " + e.salary);
+            }
         }
     }
 }
